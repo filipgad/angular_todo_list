@@ -1,38 +1,13 @@
 <div>
     <div class="container">
-        <div>
-            <label for="taks">New task</label>
-            <input type="text" id="task" [(ngModel)]="newTask">
-            <button (click)="onAdd()">Add</button>
-        </div>
+        <app-add-task (emitTask)="onAdd($event)"></app-add-task>
     </div>
     <div class="container">
         <div>
-            <h3>
-                Tasks to do:
-            </h3>
-            <ng-container *ngIf="tasksList.length > 0; else noTasks">
-                <ul>
-                    <li *ngFor="let task of tasksList">
-                        {{ task }}
-                        <button (click)="onDelete(task)">Delete</button>
-                        <button (click)="onDone(task)">Done</button>
-                    </li>
-                </ul>
-            </ng-container>
-            <ng-template #noTasks>
-                <p>You don't have any tasks to do.</p>
-            </ng-template>
+            <app-todo-task [tasksList]="tasksList" (emitDelete)="onDelete($event)" (emitDone)="onDone($event)"></app-todo-task>
         </div>
         <div>
-            <h3>
-                Tasks done ({{ tasksDone.length }}):
-            </h3>
-            <ul>
-                <li *ngFor="let taskDone of tasksDone">
-                    {{ taskDone }}
-                </li>
-            </ul>
+            <app-done-task [tasksDone]="tasksDone"></app-done-task>
         </div>
     </div>
 </div>
